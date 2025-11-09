@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录 - 红色记忆库</title>
+    <style>
+        :root {
+            --primary-red: #C92127;
+            --dark-red: #8B0000;
+            --light-red: #F8E0E2;
+            --gold: #D4AF37;
+            --text-red: #8B0000;
+            --bg-light: #FFF5F5;
+        }
+        
+        body {
+            font-family: "SimSun", "Microsoft YaHei", sans-serif;
+            background-color: var(--bg-light);
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        
+        header {
+            background-color: var(--primary-red);
+            color: white;
+            width: 100%;
+            padding: 1rem 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+        
+        .logo h1 {
+            margin: 0;
+            font-size: 1.5rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+        
+        .user-actions a {
+            color: white;
+            margin-left: 1.5rem;
+            text-decoration: none;
+        }
+        
+        .login-container {
+            background-color: white;
+            border: 1px solid var(--light-red);
+            padding: 2rem;
+            border-radius: 0;
+            width: 350px;
+            margin-top: 8rem;
+        }
+        
+        .login-title {
+            text-align: center;
+            color: var(--text-red);
+            margin-bottom: 2rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #555;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 0.7rem;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary-red);
+        }
+        
+        .remember-me {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .remember-me input {
+            margin-right: 0.5rem;
+        }
+        
+        .btn-login {
+            width: 100%;
+            background-color: var(--primary-red);
+            color: white;
+            border: none;
+            padding: 0.8rem;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        
+        .btn-login:hover {
+            background-color: var(--dark-red);
+        }
+        
+        .register-link {
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+        
+        .register-link a {
+            color: var(--text-red);
+            text-decoration: none;
+        }
+        
+        .register-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <h1>红色记忆库</h1>
+            </div>
+            <div class="user-actions">
+                <a href="index.html">首页</a>
+                <a href="heroes.html">英雄人物</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="login-container">
+        <h2 class="login-title">用户登录</h2>
+        <form action="" method="post">
+            <div class="form-group">
+                <label for="username">用户名</label>
+                <input type="text" id="username" name="username" placeholder="请输入用户名" required>
+            </div>
+            <div class="form-group">
+                <label for="password">密码</label>
+                <input type="password" id="password" name="password" placeholder="请输入密码" required>
+            </div>
+            <div class="remember-me">
+                <input type="checkbox" id="remember" name="remember">
+                <label for="remember">记住我</label>
+            </div>
+            <button type="submit" class="btn-login">登录</button>
+            <div class="register-link">
+                还没有账号？<a href="register.html">立即注册</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>红色遗址 - 红色记忆库</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/red-theme.css">
+    <style>
+        :root {
+            --primary-red: #C92127;
+            --dark-red: #8B0000;
+            --light-red: #F8E0E2;
+            --gold: #D4AF37;
+            --dark: #333333;
+        }
+        
+        body {
+            font-family: "SimSun", "Microsoft YaHei", sans-serif;
+            background-color: #fdf8f8;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: var(--primary-red);
+            color: white;
+            padding: 1rem 0;
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+        
+        .logo h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+        
+        .search-box input {
+            padding: 0.5rem;
+            border: none;
+            border-radius: 4px 0 0 4px;
+            outline: none;
+        }
+        
+        .search-box button {
+            background-color: var(--gold);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+        }
+        
+        .user-actions a {
+            color: white;
+            margin-left: 1.5rem;
+            text-decoration: none;
+        }
+        
+        nav {
+            background-color: var(--dark-red);
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .nav-links {
+            list-style: none;
+            display: flex;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .nav-links li {
+            position: relative;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 1rem 1.5rem;
+            display: block;
+        }
+        
+        .nav-links a.active {
+            background-color: var(--primary-red);
+            border-bottom: 3px solid var(--gold);
+        }
+        
+        .nav-links a:hover {
+            background-color: rgba(255,255,255,0.1);
+        }
+        
+        main {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin: 2rem 0 3rem;
+            position: relative;
+        }
+        
+        .section-title h2 {
+            color: var(--dark-red);
+            font-size: 2rem;
+            display: inline-block;
+            padding: 0 1rem;
+            background-color: #fdf8f8;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .section-title::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background-color: var(--light-red);
+            z-index: 0;
+        }
+        
+        .red-emblem {
+            text-align: center;
+            margin: 1rem 0 3rem;
+        }
+        
+        .red-emblem img {
+            height: 60px;
+            opacity: 0.8;
+        }
+        
+        .sites-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+        
+        .site-item {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .site-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .site-item a {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            height: 100%;
+        }
+        
+        .site-item.featured {
+            grid-column: span 2;
+            display: flex;
+        }
+        
+        .site-image {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .site-item.featured .site-image {
+            width: 50%;
+            height: auto;
+        }
+        
+        .site-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .site-item:hover .site-image img {
+            transform: scale(1.05);
+        }
+        
+        .site-content {
+            padding: 1.5rem;
+        }
+        
+        .site-item.featured .site-content {
+            width: 50%;
+        }
+        
+        .site-category {
+            display: inline-block;
+            background-color: var(--light-red);
+            color: var(--primary-red);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-bottom: 0.8rem;
+        }
+        
+        .site-content h2 {
+            color: var(--dark-red);
+            margin: 0 0 1rem 0;
+            font-size: 1.4rem;
+        }
+        
+        .site-facts {
+            margin: 1rem 0;
+            padding: 0.8rem;
+            background-color: var(--light-red);
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+        
+        .site-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1rem;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        footer {
+            background-color: var(--dark-red);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        @media (max-width: 900px) {
+            .site-item.featured {
+                grid-column: span 1;
+                flex-direction: column;
+            }
+            
+            .site-item.featured .site-image,
+            .site-item.featured .site-content {
+                width: 100%;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+            }
+            
+            .nav-links a {
+                padding: 0.8rem 1rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 头部区域 -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <h1>红色记忆库</h1>
+            </div> 
+            <div class="search-box">
+                <input type="text" placeholder="搜索红色遗址...">
+                <button type="button">搜索</button>
+            </div>
+            <div class="user-actions">
+                <a href="login.html" class="login">登录</a>
+                <a href="register.html" class="register">注册</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- 导航栏 -->
+    <nav>  
+        <div class="nav-container">
+            <ul class="nav-links">
+                <li><a href="index.html">红色故事</a></li>
+                <li><a href="relics.html">革命文物</a></li>
+                <li><a href="heroes.html">英雄人物</a></li>
+                <li><a href="sites.html" class="active">红色遗址</a></li>
+                <li><a href="red-culture.html">红色精神</a></li>
+                <li><a href="login.html">登录</a></li>
+                <li><a href="register.html">注册</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 主要内容区域 -->
+    <main>
+        <div class="main-container">
+            <div class="red-emblem">
+                <img src="images/red-emblem.png" alt="红色标志">
+            </div>
+            
+            <div class="section-title">
+                <h2>红色遗址 · 历史见证</h2>
+            </div>
+            
+            <section class="sites-grid">
+                <article class="site-item featured">
+                    <a href="site-detail.html">
+                        <div class="site-image">
+                            <img src="images/site-jinggangshan.jpg" alt="井冈山革命根据地">
+                        </div>
+                        <div class="site-content">
+                            <span class="site-category">革命根据地</span>
+                            <h2>井冈山革命根据地旧址</h2>
+                            <p>位于江西省井冈山市，是1927年毛泽东领导秋收起义后创建的中国第一个农村革命根据地。现存旧址包括茨坪毛泽东旧居、井冈山革命烈士陵园、黄洋界哨口等20多处革命遗址，1982年被列为全国重点文物保护单位，2007年评为国家5A级旅游景区。</p>
+                            <div class="site-facts">
+                                <strong>历史意义：</strong>开辟了"农村包围城市、武装夺取政权"的革命道路，被誉为"中国革命的摇篮"。
+                            </div>
+                            <div class="site-meta">
+                                <span class="date">创建于1927年</span>
+                                <span class="location">江西省井冈山市</span>
+                            </div>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="site-item">
+                    <a href="site-detail.html">
+                        <div class="site-image">
+                            <img src="images/site-yanan.jpg" alt="延安革命圣地">
+                        </div>
+                        <div class="site-content">
+                            <span class="site-category">革命圣地</span>
+                            <h2>延安革命纪念馆</h2>
+                            <p>位于陕西省延安市宝塔区，馆内收藏革命文物3.5万余件，历史照片1万余张，系统展示了1935年至1948年中共中央在延安的革命历史。周边有杨家岭、枣园、王家坪等革命旧址，共同构成延安红色旅游核心区。</p>
+                            <div class="site-facts">
+                                <strong>历史意义：</strong>党中央在此领导中国革命13年，培育了伟大的延安精神。
+                            </div>
+                            <div class="site-meta">
+                                <span class="date">1935-1948年为中央驻地</span>
+                                <span class="location">陕西省延安市</span>
+                            </div>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="site-item">
+                    <a href="site-detail.html">
+                        <div class="site-image">
+                            <img src="images/site-nanhu.jpg" alt="南湖红船">
+                        </div>
+                        <div class="site-content">
+                            <span class="site-category">建党遗址</span>
+                            <h2>嘉兴南湖中共一大会址</h2>
+                            <p>位于浙江省嘉兴市南湖区，1921年7月，中共一大因上海会场受到干扰，转移到南湖一艘游船上继续召开，完成了创建中国共产党的历史使命。现南湖红船已成为中国共产党诞生的象征，2011年被列为全国爱国主义教育示范基地。</p>
+                            <div class="site-facts">
+                                <strong>历史意义：</strong>中国共产党诞生地之一，红船精神的发源地。
+                            </div>
+                            <div class="site-meta">
+                                <span class="date">1921年中共一大召开</span>
+                                <span class="location">浙江省嘉兴市</span>
+                            </div>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="site-item">
+                    <a href="site-detail.html">
+                        <div class="site-image">
+                            <img src="images/site-zunyi.jpg" alt="遵义会议会址">
+                        </div>
+                        <div class="site-content">
+                            <span class="site-category">重要会议遗址</span>
+                            <h2>遵义会议会址</h2>
+                            <p>位于贵州省遵义市红花岗区，原为国民党军第25军师长柏辉章的私宅。1935年1月，遵义会议在此召开，确立了毛泽东在党中央和红军的领导地位，成为中国共产党历史上生死攸关的转折点。1961年被列为全国重点文物保护单位。</p>
+                            <div class="site-facts">
+                                <strong>历史意义：</strong>中国共产党从幼稚走向成熟的标志。
+                            </div>
+                            <div class="site-meta">
+                                <span class="date">1935年会议召开</span>
+                                <span class="location">贵州省遵义市</span>
+                            </div>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="site-item">
+                    <a href="site-detail.html">
+                        <div class="site-image">
+                            <img src="images/site-xibaipo.jpg" alt="西柏坡">
+                        </div>
+                        <div class="site-content">
+                            <span class="site-category">革命圣地</span>
+                            <h2>西柏坡中共中央旧址</h2>
+                            <p>位于河北省平山县西柏坡村，1948年5月至1949年3月为中共中央所在地。这里召开了全国土地会议和七届二中全会，毛泽东提出"两个务必"重要思想，被誉为"新中国从这里走来"。1982年被列为全国重点文物保护单位。</p>
+                            <div class="site-facts">
+                                <strong>历史意义：</strong>解放战争时期党中央指挥中心，党的工作重心从农村转向城市的起点。
+                            </div>
+                            <div class="site-meta">
+                                <span class="date">1948-1949年为中央驻地</span>
+                                <span class="location">河北省平山县</span>
+                            </div>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="site-item">
+                    <a href="site-detail.html">
+                        <div class="site-image">
+                            <img src="images/site-ruijin.jpg" alt="瑞金革命遗址">
+                        </div>
+                        <div class="site-content">
+                            <span class="site-category">革命政权遗址</span>
+                            <h2>瑞金中华苏维埃共和国旧址</h2>
+                            <p>位于江西省瑞金市，1931年11月，中华苏维埃第一次全国代表大会在此召开，宣告中华苏维埃共和国临时中央政府成立，毛泽东当选为中央执行委员会主席。现存旧址包括叶坪、沙洲坝、云石山等3处核心景区，是全国重点文物保护单位。</p>
+                            <div class="site-facts">
+                                <strong>历史意义：</strong>中国历史上第一个工农民主专政的政权，为新中国政权建设积累了经验。
+                            </div>
+                            <div class="site-meta">
+                                <span class="date">1931年成立</span>
+                                <span class="location">江西省瑞金市</span>
+                            </div>
+                        </div>
+                    </a>
+                </article>
+            </section>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="footer-container">
+            <p>&copy; 2025 红色记忆库网-星火码动队 版权所有 | 传承红色基因 弘扬革命精神</p>
+        </div>
+    </footer>
+</body>
+</html>

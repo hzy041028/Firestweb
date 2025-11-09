@@ -1,0 +1,89 @@
+/* 红色主题变量定义 */
+:root {
+    --primary-red: #C92127;      /* 主红色 */
+    --dark-red: #8B0000;         /* 深红色 */
+    --light-red: #F8E0E2;        /* 浅红色 */
+    --gold: #D4AF37;             /* 金色（强调色） */
+    --dark: #333333;             /* 深色文本 */
+}
+
+/* 主题背景色 */
+body {
+    background-color: #fdf8f8;
+    color: var(--dark);
+}
+
+/* 头部主题样式 */
+header {
+    background-color: var(--primary-red);
+    color: white;
+}
+
+.logo h1 {
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+}
+
+/* 搜索框主题样式 */
+.search-box button {
+    background-color: var(--gold);
+    color: white;
+}
+
+.user-actions a {
+    color: white;
+}
+
+/* 导航栏主题样式 */
+nav {
+    background-color: var(--dark-red);
+}
+
+.nav-links a {
+    color: white;
+}
+
+.nav-links a.active {
+    background-color: var(--primary-red);
+    border-bottom: 3px solid var(--gold);
+}
+
+.nav-links a:hover {
+    background-color: rgba(255,255,255,0.1);
+}
+
+/* 标题主题样式 */
+.section-title h2 {
+    color: var(--dark-red);
+    background-color: #fdf8f8;
+}
+
+.section-title::after {
+    background-color: var(--light-red);
+}
+
+/* 红色标志样式 */
+.red-emblem {
+    text-align: center;
+    margin: 1rem 0 3rem;
+}
+
+.red-emblem img {
+    height: 60px;
+    opacity: 0.8;
+}
+
+/* 故事内容主题样式 */
+.story-type {
+    background-color: var(--light-red);
+    color: var(--primary-red);
+}
+
+.story-content h2 {
+    color: var(--dark-red);
+}
+
+/* 页脚主题样式 */
+footer {
+    background-color: var(--dark-red);
+    color: white;
+}

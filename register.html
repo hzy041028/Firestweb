@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>注册 - 红色记忆库</title>
+    <style>
+        :root {
+            --primary-red: #C92127;
+            --dark-red: #8B0000;
+            --light-red: #F8E0E2;
+            --gold: #D4AF37;
+            --text-red: #8B0000;
+            --bg-light: #FFF5F5;
+        }
+        
+        body {
+            font-family: "SimSun", "Microsoft YaHei", sans-serif;
+            background-color: var(--bg-light);
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            padding-top: 8rem; /* 避免内容被头部遮挡 */
+            box-sizing: border-box;
+        }
+        
+        header {
+            background-color: var(--primary-red);
+            color: white;
+            width: 100%;
+            padding: 1rem 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 100;
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+        
+        .logo h1 {
+            margin: 0;
+            font-size: 1.5rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+        
+        .user-actions a {
+            color: white;
+            margin-left: 1.5rem;
+            text-decoration: none;
+        }
+        
+        .register-container {
+            background-color: white;
+            border: 1px solid var(--light-red);
+            padding: 2rem;
+            width: 400px;
+            margin: 0 auto; /* 居中显示 */
+        }
+        
+        .register-title {
+            text-align: center;
+            color: var(--text-red);
+            margin-bottom: 2rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #555;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 0.7rem;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary-red);
+        }
+        
+        .agree-terms {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .agree-terms input {
+            margin-right: 0.5rem;
+            width: auto; /* 修复复选框宽度问题 */
+        }
+        
+        .btn-register {
+            width: 100%;
+            background-color: var(--primary-red);
+            color: white;
+            border: none;
+            padding: 0.8rem;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        
+        .btn-register:hover {
+            background-color: var(--dark-red);
+        }
+        
+        .login-link {
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+        
+        .login-link a {
+            color: var(--text-red);
+            text-decoration: none;
+        }
+        
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+        
+        /* 错误提示样式 */
+        .error-message {
+            color: var(--primary-red);
+            font-size: 0.9rem;
+            margin-top: 0.3rem;
+            min-height: 1.2rem; /* 避免元素抖动 */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <h1>红色记忆库</h1>
+            </div>
+            <div class="user-actions">
+                <a href="index.html">首页</a>
+                <a href="heroes.html">英雄人物</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="register-container">
+        <h2 class="register-title">用户注册</h2>
+        <form id="registerForm">
+            <div class="form-group">
+                <label for="username">用户名</label>
+                <input type="text" id="username" name="username" placeholder="请输入用户名">
+                <div class="error-message" id="usernameError"></div>
+            </div>
+            <div class="form-group">
+                <label for="password">密码</label>
+                <input type="password" id="password" name="password" placeholder="请输入密码">
+                <div class="error-message" id="passwordError"></div>
+            </div>
+            <div class="form-group">
+                <label for="repassword">确认密码</label>
+                <input type="password" id="repassword" name="repassword" placeholder="请再次输入密码">
+                <div class="error-message" id="repasswordError"></div>
+            </div>
+            <div class="form-group">
+                <label for="email">电子邮箱</label>
+                <input type="email" id="email" name="email" placeholder="请输入电子邮箱">
+                <div class="error-message" id="emailError"></div>
+            </div>
+            <div class="agree-terms">
+                <input type="checkbox" id="agree" name="agree">
+                <label for="agree">我同意<a href="#" style="color: var(--text-red);">用户协议</a>和<a href="#" style="color: var(--text-red);">隐私政策</a></label>
+                <div class="error-message" id="agreeError"></div>
+            </div>
+            <button type="button" class="btn-register" id="registerBtn">注册</button>
+            <div class="login-link">
+                已有账号？<a href="login.html">立即登录</a>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // 避免全局变量冲突，使用自执行函数
+        (function() {
+            // 等待DOM加载完成
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', init);
+            } else {
+                init();
+            }
+
+            function init() {
+                // 获取DOM元素
+                const registerBtn = document.getElementById('registerBtn');
+                const username = document.getElementById('username');
+                const password = document.getElementById('password');
+                const repassword = document.getElementById('repassword');
+                const email = document.getElementById('email');
+                const agree = document.getElementById('agree');
+                
+                // 错误提示元素
+                const errors = {
+                    username: document.getElementById('usernameError'),
+                    password: document.getElementById('passwordError'),
+                    repassword: document.getElementById('repasswordError'),
+                    email: document.getElementById('emailError'),
+                    agree: document.getElementById('agreeError')
+                };
+
+                // 绑定按钮点击事件（避免表单默认提交）
+                registerBtn.addEventListener('click', function() {
+                    if (validateForm()) {
+                        submitForm();
+                    }
+                });
+
+                // 表单验证函数
+                function validateForm() {
+                    let isValid = true;
+                    const userVal = username.value.trim();
+                    const pwdVal = password.value;
+                    const repwdVal = repassword.value;
+                    const emailVal = email.value;
+
+                    // 清空所有错误提示
+                    Object.values(errors).forEach(el => el.textContent = '');
+
+                    // 用户名验证
+                    if (userVal === '') {
+                        errors.username.textContent = '请输入用户名';
+                        isValid = false;
+                    } else if (userVal.length < 3) {
+                        errors.username.textContent = '用户名至少3个字符';
+                        isValid = false;
+                    }
+
+                    // 密码验证
+                    if (pwdVal === '') {
+                        errors.password.textContent = '请输入密码';
+                        isValid = false;
+                    } else if (pwdVal.length < 6) {
+                        errors.password.textContent = '密码至少6个字符';
+                        isValid = false;
+                    }
+
+                    // 确认密码验证
+                    if (repwdVal === '') {
+                        errors.repassword.textContent = '请确认密码';
+                        isValid = false;
+                    } else if (repwdVal !== pwdVal) {
+                        errors.repassword.textContent = '两次密码不一致';
+                        isValid = false;
+                    }
+
+                    // 邮箱验证
+                    const emailReg = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (emailVal === '') {
+                        errors.email.textContent = '请输入邮箱';
+                        isValid = false;
+                    } else if (!emailReg.test(emailVal)) {
+                        errors.email.textContent = '请输入有效的邮箱地址';
+                        isValid = false;
+                    }
+
+                    // 协议验证
+                    if (!agree.checked) {
+                        errors.agree.textContent = '请同意用户协议';
+                        isValid = false;
+                    }
+
+                    return isValid;
+                }
+
+                // 表单提交处理
+                function submitForm() {
+                    // 禁用按钮防止重复提交
+                    registerBtn.disabled = true;
+                    registerBtn.textContent = '注册中...';
+
+                    // 模拟后端请求（实际项目中替换为真实接口）
+                    setTimeout(() => {
+                        try {
+                            // 模拟注册成功
+                            alert(`注册成功！用户名：${username.value.trim()}`);
+                            // 跳转到登录页（使用location.assign更安全）
+                            window.location.assign('login.html');
+                        } catch (err) {
+                            // 捕获跳转异常
+                            alert('注册成功，但跳转失败，请手动前往登录页');
+                            registerBtn.disabled = false;
+                            registerBtn.textContent = '注册';
+                        }
+                    }, 1500);
+                }
+            }
+        })();
+    </script>
+</body>
+</html>

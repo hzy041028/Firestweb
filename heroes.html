@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>英雄人物 - 红色记忆库</title>
+    <style>
+        :root {
+            --primary-red: #C92127;
+            --dark-red: #8B0000;
+            --light-red: #F8E0E2;
+            --gold: #D4AF37;
+            --text-red: #8B0000;
+            --bg-light: #FFF5F5;
+        }
+        
+        body {
+            font-family: "SimSun", "Microsoft YaHei", sans-serif;
+            background-color: var(--bg-light);
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+        
+        header {
+            background-color: var(--primary-red);
+            color: white;
+            padding: 1rem 0;
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+        
+        .logo h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+        
+        .search-box {
+            display: flex;
+        }
+        
+        .search-box input {
+            padding: 0.5rem;
+            border: none;
+            border-radius: 0;
+            outline: none;
+            width: 150px;
+        }
+        
+        .search-box button {
+            background-color: var(--gold);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+        }
+        
+        .user-actions a {
+            color: white;
+            margin-left: 1.5rem;
+            text-decoration: none;
+        }
+        
+        nav {
+            background-color: var(--dark-red);
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .nav-links {
+            list-style: none;
+            display: flex;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .nav-links li {
+            position: relative;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 1rem 1.5rem;
+            display: block;
+            border-bottom: 3px solid transparent;
+        }
+        
+        .nav-links a.active {
+            border-bottom: 3px solid var(--gold);
+        }
+        
+        .nav-links a:hover {
+            background-color: rgba(255,255,255,0.1);
+        }
+        
+        main {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin: 2rem 0 3rem;
+            position: relative;
+        }
+        
+        .section-title h2 {
+            color: var(--text-red);
+            font-size: 1.8rem;
+            display: inline-block;
+            padding: 0 1rem;
+            background-color: var(--bg-light);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .section-title::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background-color: var(--light-red);
+            z-index: 0;
+        }
+        
+        .red-emblem {
+            text-align: center;
+            margin: 1rem 0 3rem;
+        }
+        
+        .red-emblem img {
+            height: 60px;
+            opacity: 0.8;
+        }
+        
+        .discovery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+        
+        .discovery-item {
+            background-color: white;
+            border-radius: 0;
+            overflow: hidden;
+            box-shadow: none;
+            transition: all 0.3s ease;
+            border: 1px solid var(--light-red);
+        }
+        
+        .discovery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .discovery-item a {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            height: 100%;
+        }
+        
+        .discovery-item.featured {
+            grid-column: span 2;
+            display: flex;
+        }
+        
+        .discovery-image {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .discovery-item.featured .discovery-image {
+            width: 50%;
+            height: auto;
+        }
+        
+        .discovery-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .discovery-item:hover .discovery-image img {
+            transform: scale(1.05);
+        }
+        
+        .discovery-content {
+            padding: 1.5rem;
+        }
+        
+        .discovery-item.featured .discovery-content {
+            width: 50%;
+        }
+        
+        .category {
+            display: inline-block;
+            background-color: var(--light-red);
+            color: var(--text-red);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-bottom: 0.8rem;
+        }
+        
+        .discovery-content h2 {
+            color: var(--text-red);
+            margin: 0 0 1rem 0;
+            font-size: 1.2rem;
+        }
+        
+        .hero-quote {
+            font-style: italic;
+            border-left: 3px solid var(--primary-red);
+            padding-left: 1rem;
+            margin: 1rem 0;
+            color: #555;
+        }
+        
+        .discovery-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1rem;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        footer {
+            background-color: var(--dark-red);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        @media (max-width: 900px) {
+            .discovery-item.featured {
+                grid-column: span 1;
+                flex-direction: column;
+            }
+            
+            .discovery-item.featured .discovery-image,
+            .discovery-item.featured .discovery-content {
+                width: 100%;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+            }
+            
+            .nav-links a {
+                padding: 0.8rem 1rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 头部区域 -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <h1>红色记忆库</h1>
+            </div> 
+            <div class="search-box">
+                <input type="text" placeholder="搜索英雄人物...">
+                <button type="button">搜索</button>
+            </div>
+            <div class="user-actions">
+                <a href="login.html" class="login">登录</a>
+                <a href="register.html" class="register">注册</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- 导航栏 -->
+    <nav>  
+        <div class="nav-container">
+            <ul class="nav-links">
+                <li><a href="index.html">红色故事</a></li>
+                <li><a href="relics.html">革命文物</a></li>
+                <li><a href="heroes.html" class="active">英雄人物</a></li>
+                <li><a href="sites.html">红色遗址</a></li>
+                <li><a href="red-culture.html">红色精神</a></li>
+                <li><a href="login.html">登录</a></li>
+                <li><a href="register.html">注册</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 主要内容区域 -->
+    <main>
+        <div class="main-container">
+            <div class="red-emblem">
+                <img src="images/red-emblem.png" alt="红色标志">
+            </div>
+            
+            <div class="section-title">
+                <h2>英雄人物 · 精神丰碑</h2>
+            </div>
+            
+            <section class="discovery-grid">
+                <article class="discovery-item featured">
+                    <a href="hero-detail.html">
+                        <div class="discovery-image">
+                            <img src="images/hero-zhaoyiman.jpg" alt="赵一曼">
+                        </div>
+                        <div class="discovery-content">
+                            <span class="category">抗日民族英雄</span>
+                            <h2>赵一曼：甘将热血沃中华</h2>
+                            <p>赵一曼（1905-1936），原名李坤泰，四川宜宾人。1926年加入中国共产党，曾在莫斯科中山大学学习。1935年担任东北抗日联军第三军二团政委，在与日军作战中负伤被俘。狱中遭受酷刑仍坚贞不屈，1936年8月2日英勇就义，年仅31岁。</p>
+                            <div class="hero-quote">
+                                "未惜头颅新故国，甘将热血沃中华。白山黑水除敌寇，笑看旌旗红似花。"
+                            </div>
+                            <div class="discovery-meta">
+                                <span class="date">1905-1936</span>
+                                <span class="location">四川宜宾人</span>
+                            </div>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="discovery-item">
+                    <a href="hero-detail.html">
+                        <div class="discovery-image">
+                            <img src="images/hero-linjuxiang.jpg" alt="林觉民">
+                        </div>
+                        <div class="discovery-content">
+                            <span class="category">辛亥革命烈士</span>
+                            <h2>林觉民：为天下人谋永福</h2>
+                            <p>林觉民（1887-1911），福建闽侯人，中国民主革命志士。1911年4月27日参加广州起义，随黄兴攻入总督衙门，受伤被俘。在狱中写下《与妻书》，字里行间充满对妻子的深情和为革命牺牲的决心，最终从容就义，年仅24岁。</p>
+                            <div class="hero-quote">
+                                "吾充吾爱汝之心，助天下人爱其所爱，所以敢先汝而死，不顾汝也。"
+                            </div>
+                            <div class="discovery-meta">
+                                <span class="date">1887-1911</span>
+                                <span class="location">福建闽侯人</span>
+                            </div>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="discovery-item">
+                    <a href="hero-detail.html">
+                        <div class="discovery-image">
+                            <img src="images/hero-zhouenlai.jpg" alt="周恩来">
+                        </div>
+                        <div class="discovery-content">
+                            <span class="category">无产阶级革命家</span>
+                            <h2>周恩来：为中华之崛起而读书</h2>
+                            <p>周恩来（1898-1976），字翔宇，江苏淮安人。中国人民解放军主要创建人之一，中华人民共和国首任总理。从青年时期就立志"为中华之崛起而读书"，一生为中国革命和建设事业鞠躬尽瘁，被誉为"人民的好总理"。</p>
+                            <div class="hero-quote">
+                                "愿相会于中华腾飞世界时。"
+                            </div>
+                            <div class="discovery-meta">
+                                <span class="date">1898-1976</span>
+                                <span class="location">江苏淮安人</span>
+                            </div>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="discovery-item">
+                    <a href="hero-detail.html">
+                        <div class="discovery-image">
+                            <img src="images/hero-yangjingyu.jpg" alt="杨靖宇">
+                        </div>
+                        <div class="discovery-content">
+                            <span class="category">抗日民族英雄</span>
+                            <h2>杨靖宇：东北抗日联军的旗帜</h2>
+                            <p>杨靖宇（1905-1940），原名马尚德，河南确山人。东北抗日联军的主要创建者和领导人，长期在东北坚持艰苦的抗日游击战争。1940年2月在战斗中身负重伤，孤身与日军周旋数日，直至弹尽粮绝壮烈牺牲，年仅35岁。</p>
+                            <div class="hero-quote">
+                                "我们中国人都投降了，还有中国吗？"
+                            </div>
+                            <div class="discovery-meta">
+                                <span class="date">1905-1940</span>
+                                <span class="location">河南确山人</span>
+                            </div>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="discovery-item">
+                    <a href="https://www.doubao.com/">
+                        <div class="discovery-image">
+                            <img src="images/hero-sunzhongsan.jpg" alt="孙中山">
+                        </div>
+                        <div class="discovery-content">
+                            <span class="category">民主革命先行者</span>
+                            <h2>孙中山：革命尚未成功，同志仍须努力</h2>
+                            <p>孙中山（1866-1925），名文，字逸仙，广东香山人。中国近代民主革命的伟大先行者，提出"三民主义"，领导辛亥革命推翻封建帝制，建立中华民国。一生致力于民族独立和人民解放。</p>
+                            <div class="hero-quote">
+                                "世界潮流，浩浩荡荡，顺之则昌，逆之则亡。"
+                            </div>
+                            <div class="discovery-meta">
+                                <span class="date">1866-1925</span>
+                                <span class="location">广东香山人</span>
+                            </div>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="discovery-item">
+                    <a href="hero-detail.html">
+                        <div class="discovery-image">
+                            <img src="images/hero-zhangside.jpg" alt="张思德">
+                        </div>
+                        <div class="discovery-content">
+                            <span class="category">为人民服务典范</span>
+                            <h2>张思德：为人民服务的楷模</h2>
+                            <p>张思德（1915-1944），四川仪陇人。1933年参加红军，1937年加入中国共产党。在革命战争年代，他始终牢记为人民服务的宗旨，干一行爱一行。1944年9月在陕北安塞烧炭时，因炭窑崩塌牺牲。</p>
+                            <div class="hero-quote">
+                                "我们这个队伍完全是为着解放人民的，是彻底地为人民的利益工作的。"
+                            </div>
+                            <div class="discovery-meta">
+                                <span class="date">1915-1944</span>
+                                <span class="location">四川仪陇人</span>
+                            </div>
+                        </div>
+                    </a>
+                </article>
+            </section>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="footer-container">
+            <p>&copy; 2025 红色记忆库网-星火码动队 版权所有 | 传承红色基因 弘扬革命精神</p>
+        </div>
+    </footer>
+</body>
+</html>

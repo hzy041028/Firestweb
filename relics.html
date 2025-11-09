@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>革命文物 - 红色记忆库</title>
+    <style>
+        :root {
+            --primary-red: #C92127;
+            --dark-red: #8B0000;
+            --light-red: #F8E0E2;
+            --gold: #D4AF37;
+            --text-red: #8B0000;
+            --bg-light: #FFF5F5;
+        }
+        
+        body {
+            font-family: "SimSun", "Microsoft YaHei", sans-serif;
+            background-color: var(--bg-light);
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+        
+        header {
+            background-color: var(--primary-red);
+            color: white;
+            padding: 1rem 0;
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+        
+        .logo h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+        
+        .search-box {
+            display: flex;
+        }
+        
+        .search-box input {
+            padding: 0.5rem;
+            border: none;
+            border-radius: 0;
+            outline: none;
+            width: 150px;
+        }
+        
+        .search-box button {
+            background-color: var(--gold);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+        }
+        
+        .user-actions a {
+            color: white;
+            margin-left: 1.5rem;
+            text-decoration: none;
+        }
+        
+        nav {
+            background-color: var(--dark-red);
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .nav-links {
+            list-style: none;
+            display: flex;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .nav-links li {
+            position: relative;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 1rem 1.5rem;
+            display: block;
+            border-bottom: 3px solid transparent;
+        }
+        
+        .nav-links a.active {
+            border-bottom: 3px solid var(--gold);
+        }
+        
+        .nav-links a:hover {
+            background-color: rgba(255,255,255,0.1);
+        }
+        
+        main {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin: 2rem 0 3rem;
+            position: relative;
+        }
+        
+        .section-title h2 {
+            color: var(--text-red);
+            font-size: 1.8rem;
+            display: inline-block;
+            padding: 0 1rem;
+            background-color: var(--bg-light);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .section-title::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background-color: var(--light-red);
+            z-index: 0;
+        }
+        
+        .red-emblem {
+            text-align: center;
+            margin: 1rem 0 3rem;
+        }
+        
+        .red-emblem img {
+            height: 60px;
+            opacity: 0.8;
+        }
+        
+        .discovery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+        
+        .discovery-item {
+            background-color: white;
+            border-radius: 0;
+            overflow: hidden;
+            box-shadow: none;
+            transition: all 0.3s ease;
+            border: 1px solid var(--light-red);
+        }
+        
+        .discovery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .discovery-item a {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            height: 100%;
+        }
+        
+        .discovery-item.featured {
+            grid-column: span 2;
+            display: flex;
+        }
+        
+        .discovery-image {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .discovery-item.featured .discovery-image {
+            width: 50%;
+            height: auto;
+        }
+        
+        .discovery-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .discovery-item:hover .discovery-image img {
+            transform: scale(1.05);
+        }
+        
+        .discovery-content {
+            padding: 1.5rem;
+        }
+        
+        .discovery-item.featured .discovery-content {
+            width: 50%;
+        }
+        
+        .category {
+            display: inline-block;
+            background-color: var(--light-red);
+            color: var(--text-red);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-bottom: 0.8rem;
+        }
+        
+        .discovery-content h2 {
+            color: var(--text-red);
+            margin: 0 0 1rem 0;
+            font-size: 1.2rem;
+        }
+        
+        .discovery-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1rem;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        footer {
+            background-color: var(--dark-red);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        @media (max-width: 900px) {
+            .discovery-item.featured {
+                grid-column: span 1;
+                flex-direction: column;
+            }
+            
+            .discovery-item.featured .discovery-image,
+            .discovery-item.featured .discovery-content {
+                width: 100%;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+            }
+            
+            .nav-links a {
+                padding: 0.8rem 1rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 头部区域 -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <h1>红色记忆库</h1>
+            </div> 
+            <div class="search-box">
+                <input type="text" placeholder="搜索革命文物...">
+                <button type="button">搜索</button>
+            </div>
+            <div class="user-actions">
+                <a href="login.html" class="login">登录</a>
+                <a href="register.html" class="register">注册</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- 导航栏 -->
+    <nav>  
+        <div class="nav-container">
+            <ul class="nav-links">
+                <li><a href="index.html">红色故事</a></li>
+                <li><a href="relics.html" class="active">革命文物</a></li>
+                <li><a href="heroes.html">英雄人物</a></li>
+                <li><a href="sites.html">红色遗址</a></li>
+                <li><a href="red-culture.html">红色精神</a></li>
+                <li><a href="login.html">登录</a></li>
+                <li><a href="register.html">注册</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 主要内容区域 -->
+    <main>
+        <div class="main-container">
+            <div class="red-emblem">
+                <img src="images/red-emblem.png" alt="红色标志">
+            </div>
+            
+            <div class="section-title">
+                <h2>革命文物 · 历史见证</h2>
+            </div>
+            
+            <section class="discovery-grid">
+                <article class="discovery-item featured">
+                    <a href="relic-detail.html">
+                        <div class="discovery-image">
+                            <img src="images/relic-bianzhang.jpg" alt="朱德的扁担">
+                        </div>
+                        <div class="discovery-content">
+                            <span class="category">革命工具</span>
+                            <h2>朱德的扁担</h2>
+                            <p>这根扁担长1.2米，由杉木制成，表面因长期使用而光滑。1928年朱德在井冈山使用时，为防止战士们再藏起他的扁担，特意在扁担上刻下"朱德的扁担"五个字。它见证了红军官兵一致、同甘共苦的优良作风，现藏于井冈山革命博物馆，为国家一级文物。</p>
+                            <div class="discovery-meta">
+                                <span class="date">1928年使用</span>
+                                <span class="location">井冈山革命博物馆藏</span>
+                            </div>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="discovery-item">
+                    <a href="relic-detail.html">
+                        <div class="discovery-image">
+                            <img src="images/relic-qiuzhuang.jpg" alt="李大钊的皮箱">
+                        </div>
+                        <div class="discovery-content">
+                            <span class="category">个人物品</span>
+                            <h2>李大钊的皮箱</h2>
+                            <p>这只棕色皮箱是李大钊1924年赴苏联参加共产国际五大时使用的旅行箱，长60厘米，宽40厘米，表面有多处磨损痕迹。箱内曾存放过《中国共产党纲领》草案等重要文件，见证了中国共产党早期对外交流的历史。</p>
+                            <div class="discovery-meta">
+                                <span class="date">1924年使用</span>
+                                <span class="location">中国国家博物馆藏</span>
+                            </div>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="discovery-item">
+                    <a href="relic-detail.html">
+                        <div class="discovery-image">
+                            <img src="images/relic-qiang.jpg" alt="平型关大捷使用的步枪">
+                        </div>
+                        <div class="discovery-content">
+                            <span class="category">武器装备</span>
+                            <h2>平型关大捷缴获的日军步枪</h2>
+                            <p>这是一支1937年平型关大捷中八路军缴获的日军三八式步枪，枪身长1.28米，枪管上仍留有战斗痕迹。平型关大捷是全民族抗战爆发后中国军队的首次重大胜利，打破了"日军不可战胜"的神话。</p>
+                            <div class="discovery-meta">
+                                <span class="date">1937年缴获</span>
+                                <span class="location">军事博物馆藏</span>
+                            </div>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="discovery-item">
+                    <a href="relic-detail.html">
+                        <div class="discovery-image">
+                            <img src="images/relic-zhiyin.jpg" alt="赵一曼的遗书">
+                        </div>
+                        <div class="discovery-content">
+                            <span class="category">文献档案</span>
+                            <h2>赵一曼的狱中遗书</h2>
+                            <p>这是赵一曼1936年就义前写给儿子陈掖贤的遗书，用毛笔写在泛黄的信纸上，字迹因狱中条件艰苦而略显颤抖。信中写道："母亲不用千言万语来教育你，就用实行来教育你。在你长大成人之后，希望你不要忘记你的母亲是为国而牺牲的！"</p>
+                            <div class="discovery-meta">
+                                <span class="date">1936年书写</span>
+                                <span class="location">东北烈士纪念馆藏</span>
+                            </div>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="discovery-item">
+                    <a href="relic-detail.html">
+                        <div class="discovery-image">
+                            <img src="images/relic-xiufu.jpg" alt="红军的补丁军装">
+                        </div>
+                        <div class="discovery-content">
+                            <span class="category">生活用品</span>
+                            <h2>红军过草地时的补丁军装</h2>
+                            <p>这件灰色粗布军装来自1935年红军长征过草地时期，衣身布满30多个不同颜色的补丁，袖口和肘部磨损严重。它见证了红军在极端恶劣条件下的顽强意志，体现了"一不怕苦、二不怕死"的革命精神。</p>
+                            <div class="discovery-meta">
+                                <span class="date">1935年使用</span>
+                                <span class="location">松潘长征纪念馆藏</span>
+                            </div>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="discovery-item">
+                    <a href="relic-detail.html">
+                        <div class="discovery-image">
+                            <img src="images/relic-yingxiongzhang.jpg" alt="董存瑞的军功章">
+                        </div>
+                        <div class="discovery-content">
+                            <span class="category">荣誉勋章</span>
+                            <h2>董存瑞的"勇敢奖章"</h2>
+                            <p>这枚铜质奖章是1947年董存瑞因在隆化战斗中表现英勇而获得的"勇敢奖章"，正面刻有五角星和"勇敢"二字。1948年，他在解放隆化战役中舍身炸碉堡，用生命为部队开辟道路，这枚奖章成为他革命精神的象征。</p>
+                            <div class="discovery-meta">
+                                <span class="date">1947年颁发</span>
+                                <span class="location">董存瑞烈士陵园藏</span>
+                            </div>
+                        </div>
+                    </a>
+                </article>
+            </section>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="footer-container">
+            <p>&copy; 2025 红色记忆库网-星火码动队 版权所有 | 传承红色基因 弘扬革命精神</p>
+        </div>
+    </footer>
+</body>
+</html>
